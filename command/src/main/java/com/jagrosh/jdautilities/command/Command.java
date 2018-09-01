@@ -105,6 +105,9 @@ public abstract class Command
      * <br>Default {@code false}.
      */
     protected boolean ownerCommand = false;
+    // 2 booleans needed for this to work
+    protected boolean adminCommand = false;
+    protected boolean adminperm = false;
     
     /**
      * An {@code int} number of seconds users must wait before using this command again.
@@ -210,6 +213,12 @@ public abstract class Command
         if(ownerCommand && !(event.isOwner()))
         {
             terminate(event,null);
+            return;
+        }
+        // check for admin commands
+        if (adminCommand && !adminperm)
+        {
+            terminate(event, null);
             return;
         }
         
